@@ -1,5 +1,5 @@
 const express = require ('express');
-const bodyParcer = require ('body-parser');
+const bodyParser = require ('body-parser');
 
 const apiRouter = require('./routes/api');
 
@@ -7,8 +7,8 @@ const app = express();
 
 require('./db');
 
-app.use(bodyParcer.urlencoded({extended: true}));
-app.use(bodyParcer.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use('/api', apiRouter);
 

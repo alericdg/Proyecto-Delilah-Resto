@@ -12,7 +12,7 @@ const checkToken = (req, res, next) => {
     let payload = {};
 
     try {
-        payload = jwt.decode(userToken, 'frase secreta');
+        payload = jwt.decode(userToken, 'secret code');
     } catch (err) {
         return res.json({ error: 'Token incorrecto'});
     }
@@ -21,11 +21,22 @@ const checkToken = (req, res, next) => {
         return res.json({ error: 'Token expirado'});
     }
 
-    req.usuarioId = payload.usuarioId;
+    req.userId = payload.userId;
 
     next();
 }
 
+const hasRole = (req, res, next) => {
+    const user = req.body;
+
+    if (user.role == 'admin') {
+        return next();
+    } else
+    return res.json({ error: 'No eres administrador'});
+    /* res.sendStatus(403); */
+}
+
 module.exports = {
-    checkToken: checkToken
+    checkToken: checkToken,
+    hasRole: hasRole,
 }

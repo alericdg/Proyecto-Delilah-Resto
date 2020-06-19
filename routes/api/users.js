@@ -37,12 +37,12 @@ router.post('/login', async (req, res) => {
 
 const  createToken = (user) => {
     const payload = {
-        usuarioId: user.id,
+        userId: user.id,
         createdAt: moment().unix(),
         expiredAt: moment().add(5, 'minutes').unix()
     }
 
-    return jwt.encode(payload, 'frase secreta');
+    return jwt.encode(payload, 'secret code');
 }
 
 module.exports = router;

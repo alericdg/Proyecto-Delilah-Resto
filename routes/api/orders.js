@@ -1,11 +1,11 @@
 const router = require('express').Router();
+const middleware = require('../middlewares');
 
 const {Order} = require('../../db');
 
 router.get('/', async (req, res) => {
-    console.log(req.usuarioId);
-    const orders = await Order.findAll();
-    res.json(orders);
+    const order = await Order.findAll();
+    res.json(order);
 });
 
 router.post('/', async (req, res) =>{
@@ -13,14 +13,14 @@ router.post('/', async (req, res) =>{
     res.json(order);
 });
 
-router.put('/:orderId', async (req, res) => {
+router.put('/:orderId', middleware.checkToken, middleware.hasRole, async (req, res) => {
     await Order.update(req.body, {
         where: { id: req.params.orderId }
     });
     res.json({ success: 'Edición exitosa' })
 });
 
-router.delete('/:orderId', async (req, res) => {
+router.delete('/:orderId', middleware.checkToken, middleware.hasRole, async (req, res) => {
     await Order.destroy({
         where: { id: req.params.orderId}
     });

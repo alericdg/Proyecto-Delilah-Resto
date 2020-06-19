@@ -6,8 +6,12 @@ module.exports = (sequelize, type) => {
             autoIncrement: true,
             allowNull: false 
         },
+        quantity: {
+            type: type.INTEGER,
+            allowNull :false,
+            defaultValue: '1',
+        },
         product: type.STRING,
-        quantity: type.INTEGER,
         amount: type.INTEGER
     })
 }
