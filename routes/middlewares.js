@@ -33,7 +33,6 @@ const hasRole = (req, res, next) => {
         return next();
     } else
     return res.json({ error: 'No eres administrador'});
-    /* res.sendStatus(403); */
 }
 
 module.exports = {

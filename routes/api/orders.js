@@ -3,7 +3,7 @@ const middleware = require('../middlewares');
 
 const {Order} = require('../../db');
 
-router.get('/', async (req, res) => {
+router.get('/', middleware.checkToken, middleware.hasRole, async (req, res) => {
     const order = await Order.findAll();
     res.json(order);
 });
