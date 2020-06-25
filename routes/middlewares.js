@@ -21,15 +21,15 @@ const checkToken = (req, res, next) => {
         return res.json({ error: 'Token expirado'});
     }
 
-    req.userId = payload.userId;
+    req.user = payload.userId;
+    req.hasRole = payload.hasrole;
 
     next();
 }
 
 const hasRole = (req, res, next) => {
-    const user = req.body;
 
-    if (user.role == 'admin') {
+    if (req.hasRole == 'admin') {
         return next();
     } else
     return res.json({ error: 'No eres administrador'});

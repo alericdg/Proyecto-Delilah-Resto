@@ -12,6 +12,8 @@ module.exports = (sequelize, type) => {
             defaultValue: '1',
         },
         product: type.STRING,
-        amount: type.INTEGER
+        amount: type.INTEGER,
+        userId: type.INTEGER,
+        status: type.STRING
     })
 }

@@ -38,6 +38,7 @@ router.post('/login', async (req, res) => {
 const  createToken = (user) => {
     const payload = {
         userId: user.id,
+        hasrole: user.role,
         createdAt: moment().unix(),
         expiredAt: moment().add(5, 'minutes').unix()
     }

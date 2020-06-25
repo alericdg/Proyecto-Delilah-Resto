@@ -13,13 +13,16 @@ const Order = OrderModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
 const Product = ProductModel(sequelize, Sequelize);
 
+User.hasMany(Order);
+Order.belongsTo(User);
+
+Product.belongsToMany(Order, { through: 'orderedProducts', foreignKey: 'ProdictId' });
+Order.belongsToMany(Product, { through: 'orderedProducts' , foreignKey: 'OrderId'});
+
 sequelize.sync({force: false})
     .then(() => {
         console.log('Tablas sincronizadas correctamente')
     })
-
-/* Usuario.hasMany(Pedido);
-Plato.hasMany(Pedido); */
 
 module.exports = {
     Order,

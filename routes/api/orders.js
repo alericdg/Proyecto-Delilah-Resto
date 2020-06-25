@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const middleware = require('../middlewares');
 
-const {Order} = require('../../db');
+const {Order, Product} = require('../../db');
 
 router.get('/', middleware.checkToken, middleware.hasRole, async (req, res) => {
     const order = await Order.findAll();
@@ -9,8 +9,21 @@ router.get('/', middleware.checkToken, middleware.hasRole, async (req, res) => {
 });
 
 router.post('/', async (req, res) =>{
-    const order = await Order.create(req.body);
-    res.json(order);
+    const postProduct = req.body.productId;
+    const postOrder = req.body;
+    postOrder.userId = req.userId;
+    const postOrders = await Order.create(postOrder).then(
+        (order) => {
+            postProduct.forEach(async element => {
+                const prod = await Product.findOne({
+                    where:{ id: element }
+                })
+                prod.addOrder(order);
+            });
+        }
+    )
+    res.status(200).json('Orden creada');
+
 });
 
 router.put('/:orderId', middleware.checkToken, middleware.hasRole, async (req, res) => {
