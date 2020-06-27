@@ -6,14 +6,11 @@ module.exports = (sequelize, type) => {
             autoIncrement: true,
             allowNull: false 
         },
-        quantity: {
-            type: type.INTEGER,
-            allowNull :false,
-            defaultValue: '1',
-        },
+        quantity: type.INTEGER,
         product: type.STRING,
         amount: type.INTEGER,
         userId: type.INTEGER,
+        payment: type.STRING,
         status: type.STRING
     })
 }
